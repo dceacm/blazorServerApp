@@ -12,10 +12,9 @@ El siguiente esquema representa el funcionamiento de lo que se quiere explicar:
 ## Soluciones separadas
 Como representa el esquema, se ha creado una solución para el Front end y otra solución para el Back end.
 - ### Blazor Server App
-  El repositorio de esta solución es esta mismo.
+  El código donde puedes descargar la aplicación se encuentra en: https://github.com/dceacm/blazorServerApp
 - ### Web API
-  El repositorio donde puedes descargar la API se encuentra en:
-  https://github.com/dceacm/webApi
+  El código donde puedes descargar la API se encuentra en: https://github.com/dceacm/webApi
   
 ## Excepciones en Blazor Server
 
