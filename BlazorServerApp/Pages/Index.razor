@@ -38,10 +38,10 @@ else
 }
 
 @code {
-    private List<Person> lista = null!;
+    private List<Persona> lista = null!;
 
     protected override async Task OnInitializedAsync()
     {
-        lista = (await ApiClient.ApiV1PersonsGetAsync()).ToList();
+        lista = (await ApiClient.ApiV1PersonaGetAsync()).ToList();
     }
 }

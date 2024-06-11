@@ -56,21 +56,21 @@ namespace BlazorServerApp.OpenAPIs
 
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task<Person> ApiV1PersonsGetAsync(int id)
+        public virtual System.Threading.Tasks.Task<Persona> ApiV1PersonaGetAsync(int id)
         {
-            return ApiV1PersonsGetAsync(id, System.Threading.CancellationToken.None);
+            return ApiV1PersonaGetAsync(id, System.Threading.CancellationToken.None);
         }
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task<Person> ApiV1PersonsGetAsync(int id, System.Threading.CancellationToken cancellationToken)
+        public virtual async System.Threading.Tasks.Task<Persona> ApiV1PersonaGetAsync(int id, System.Threading.CancellationToken cancellationToken)
         {
             if (id == null)
                 throw new System.ArgumentNullException("id");
 
             var urlBuilder_ = new System.Text.StringBuilder();
-            urlBuilder_.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/api/v1/Persons/{id}");
+            urlBuilder_.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/api/v1/Persona/{id}");
             urlBuilder_.Replace("{id}", System.Uri.EscapeDataString(ConvertToString(id, System.Globalization.CultureInfo.InvariantCulture)));
 
             var client_ = _httpClient;
@@ -105,7 +105,7 @@ namespace BlazorServerApp.OpenAPIs
                         var status_ = (int)response_.StatusCode;
                         if (status_ == 200)
                         {
-                            var objectResponse_ = await ReadObjectResponseAsync<Person>(response_, headers_, cancellationToken).ConfigureAwait(false);
+                            var objectResponse_ = await ReadObjectResponseAsync<Persona>(response_, headers_, cancellationToken).ConfigureAwait(false);
                             if (objectResponse_.Object == null)
                             {
                                 throw new ApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
@@ -134,18 +134,18 @@ namespace BlazorServerApp.OpenAPIs
 
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task<System.Collections.Generic.ICollection<Person>> ApiV1PersonsGetAsync()
+        public virtual System.Threading.Tasks.Task<System.Collections.Generic.ICollection<Persona>> ApiV1PersonaGetAsync()
         {
-            return ApiV1PersonsGetAsync(System.Threading.CancellationToken.None);
+            return ApiV1PersonaGetAsync(System.Threading.CancellationToken.None);
         }
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task<System.Collections.Generic.ICollection<Person>> ApiV1PersonsGetAsync(System.Threading.CancellationToken cancellationToken)
+        public virtual async System.Threading.Tasks.Task<System.Collections.Generic.ICollection<Persona>> ApiV1PersonaGetAsync(System.Threading.CancellationToken cancellationToken)
         {
             var urlBuilder_ = new System.Text.StringBuilder();
-            urlBuilder_.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/api/v1/Persons");
+            urlBuilder_.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/api/v1/Persona");
 
             var client_ = _httpClient;
             var disposeClient_ = false;
@@ -179,7 +179,7 @@ namespace BlazorServerApp.OpenAPIs
                         var status_ = (int)response_.StatusCode;
                         if (status_ == 200)
                         {
-                            var objectResponse_ = await ReadObjectResponseAsync<System.Collections.Generic.ICollection<Person>>(response_, headers_, cancellationToken).ConfigureAwait(false);
+                            var objectResponse_ = await ReadObjectResponseAsync<System.Collections.Generic.ICollection<Persona>>(response_, headers_, cancellationToken).ConfigureAwait(false);
                             if (objectResponse_.Object == null)
                             {
                                 throw new ApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
@@ -208,18 +208,18 @@ namespace BlazorServerApp.OpenAPIs
 
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task ApiV1PersonsGetNotFoundAsync()
+        public virtual System.Threading.Tasks.Task ApiV1PersonaGetNotFoundAsync()
         {
-            return ApiV1PersonsGetNotFoundAsync(System.Threading.CancellationToken.None);
+            return ApiV1PersonaGetNotFoundAsync(System.Threading.CancellationToken.None);
         }
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task ApiV1PersonsGetNotFoundAsync(System.Threading.CancellationToken cancellationToken)
+        public virtual async System.Threading.Tasks.Task ApiV1PersonaGetNotFoundAsync(System.Threading.CancellationToken cancellationToken)
         {
             var urlBuilder_ = new System.Text.StringBuilder();
-            urlBuilder_.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/api/v1/Persons/GetNotFound");
+            urlBuilder_.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/api/v1/Persona/GetNotFound");
 
             var client_ = _httpClient;
             var disposeClient_ = false;
@@ -276,18 +276,18 @@ namespace BlazorServerApp.OpenAPIs
 
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task ApiV1PersonsGetBadRequestAsync()
+        public virtual System.Threading.Tasks.Task ApiV1PersonaGetBadRequestAsync()
         {
-            return ApiV1PersonsGetBadRequestAsync(System.Threading.CancellationToken.None);
+            return ApiV1PersonaGetBadRequestAsync(System.Threading.CancellationToken.None);
         }
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task ApiV1PersonsGetBadRequestAsync(System.Threading.CancellationToken cancellationToken)
+        public virtual async System.Threading.Tasks.Task ApiV1PersonaGetBadRequestAsync(System.Threading.CancellationToken cancellationToken)
         {
             var urlBuilder_ = new System.Text.StringBuilder();
-            urlBuilder_.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/api/v1/Persons/GetBadRequest");
+            urlBuilder_.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/api/v1/Persona/GetBadRequest");
 
             var client_ = _httpClient;
             var disposeClient_ = false;
@@ -344,18 +344,18 @@ namespace BlazorServerApp.OpenAPIs
 
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task ApiV1PersonsGetUnauthorizedAsync()
+        public virtual System.Threading.Tasks.Task ApiV1PersonaGetUnauthorizedAsync()
         {
-            return ApiV1PersonsGetUnauthorizedAsync(System.Threading.CancellationToken.None);
+            return ApiV1PersonaGetUnauthorizedAsync(System.Threading.CancellationToken.None);
         }
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task ApiV1PersonsGetUnauthorizedAsync(System.Threading.CancellationToken cancellationToken)
+        public virtual async System.Threading.Tasks.Task ApiV1PersonaGetUnauthorizedAsync(System.Threading.CancellationToken cancellationToken)
         {
             var urlBuilder_ = new System.Text.StringBuilder();
-            urlBuilder_.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/api/v1/Persons/GetUnauthorized");
+            urlBuilder_.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/api/v1/Persona/GetUnauthorized");
 
             var client_ = _httpClient;
             var disposeClient_ = false;

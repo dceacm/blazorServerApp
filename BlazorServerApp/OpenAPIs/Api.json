@@ -5,10 +5,10 @@
     "version": "v1"
   },
   "paths": {
-    "/api/v1/Persons/{id}": {
+    "/api/v1/Persona/{id}": {
       "get": {
         "tags": [
-          "Persons"
+          "Persona"
         ],
         "parameters": [
           {
@@ -27,17 +27,17 @@
             "content": {
               "text/plain": {
                 "schema": {
-                  "$ref": "#/components/schemas/Person"
+                  "$ref": "#/components/schemas/Persona"
                 }
               },
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Person"
+                  "$ref": "#/components/schemas/Persona"
                 }
               },
               "text/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Person"
+                  "$ref": "#/components/schemas/Persona"
                 }
               }
             }
@@ -45,10 +45,10 @@
         }
       }
     },
-    "/api/v1/Persons": {
+    "/api/v1/Persona": {
       "get": {
         "tags": [
-          "Persons"
+          "Persona"
         ],
         "responses": {
           "200": {
@@ -58,7 +58,7 @@
                 "schema": {
                   "type": "array",
                   "items": {
-                    "$ref": "#/components/schemas/Person"
+                    "$ref": "#/components/schemas/Persona"
                   }
                 }
               },
@@ -66,7 +66,7 @@
                 "schema": {
                   "type": "array",
                   "items": {
-                    "$ref": "#/components/schemas/Person"
+                    "$ref": "#/components/schemas/Persona"
                   }
                 }
               },
@@ -74,7 +74,7 @@
                 "schema": {
                   "type": "array",
                   "items": {
-                    "$ref": "#/components/schemas/Person"
+                    "$ref": "#/components/schemas/Persona"
                   }
                 }
               }
@@ -83,10 +83,10 @@
         }
       }
     },
-    "/api/v1/Persons/GetNotFound": {
+    "/api/v1/Persona/GetNotFound": {
       "get": {
         "tags": [
-          "Persons"
+          "Persona"
         ],
         "responses": {
           "200": {
@@ -95,10 +95,10 @@
         }
       }
     },
-    "/api/v1/Persons/GetBadRequest": {
+    "/api/v1/Persona/GetBadRequest": {
       "get": {
         "tags": [
-          "Persons"
+          "Persona"
         ],
         "responses": {
           "200": {
@@ -107,10 +107,10 @@
         }
       }
     },
-    "/api/v1/Persons/GetUnauthorized": {
+    "/api/v1/Persona/GetUnauthorized": {
       "get": {
         "tags": [
-          "Persons"
+          "Persona"
         ],
         "responses": {
           "200": {
@@ -122,7 +122,7 @@
   },
   "components": {
     "schemas": {
-      "Person": {
+      "Persona": {
         "type": "object",
         "properties": {
           "id": {
