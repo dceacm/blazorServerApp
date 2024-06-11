@@ -1,0 +1,13 @@
+﻿@page "/internalServerError"
+
+<PageTitle>InternalServerError</PageTitle>
+<h1>500 InternalServerError</h1>
+<p>Provoca una excepción que desencadena un error 500 transcurridos 3 segundos desde que se muestra la página.</p>
+
+@code {
+    protected override async Task OnInitializedAsync()
+    {
+        await Task.Delay(3000);
+        throw new Exception("Excepción provocada intencionadamente.");
+    }
+}

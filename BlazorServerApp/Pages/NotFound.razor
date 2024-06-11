@@ -1,0 +1,15 @@
+﻿@page "/notFound"
+
+@inject IApiClient ApiClient
+
+<PageTitle>NotFound</PageTitle>
+<h1>404 NotFound</h1>
+<p>Provoca un error 404 transcurridos 3 segundos desde que se muestra la página.</p>
+
+@code {
+    protected override async Task OnInitializedAsync()
+    {
+        await Task.Delay(3000);
+        await ApiClient.ApiV1PersonsGetNotFoundAsync();
+    }
+}

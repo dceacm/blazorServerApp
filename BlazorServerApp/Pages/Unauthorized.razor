@@ -1,0 +1,15 @@
+﻿@page "/unauthorized"
+
+@inject IApiClient ApiClient
+
+<PageTitle>Unauthorized</PageTitle>
+<h1>401 Unauthorized</h1>
+<p>Provoca un error 401 transcurridos 3 segundos desde que se muestra la página.</p>
+
+@code {
+    protected override async Task OnInitializedAsync()
+    {
+        await Task.Delay(3000);
+        await ApiClient.ApiV1PersonsGetUnauthorizedAsync();
+    }
+}

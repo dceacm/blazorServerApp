@@ -1,0 +1,101 @@
+﻿@using BlazorServerApp.Data
+@using BlazorServerApp.OpenAPIs
+@using System.Text.Json
+@using Microsoft.AspNetCore.Mvc
+
+@inherits ErrorBoundaryBase
+@inject NavigationManager Navigation
+
+@if (Error != null)
+{
+    <div class="align-content-center text-center">
+        <h1 class="display-1" style="font-size: 10rem">@Error.StatusCode</h1>
+        <div class="pb-3">
+            <h2 class="display-4">@Error.Title</h2>
+        </div>
+    </div>
+    <div class="alert alert-danger">
+        <h3>@Error.Type</h3>
+        <p>@Error.Message</p>
+    </div>
+    @if (Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") == "Development" && !string.IsNullOrEmpty(Error.StackTrace))
+    {
+        <div class="alert alert-warning">
+            <p>@Error.StackTrace</p>
+        </div>
+    }
+    <div class="d-flex justify-content-center align-items-center">
+        <button class="btn btn-secondary" @onclick="ReturnToHome">Volver a inicio</button>
+    </div>
+}
+else
+{
+    @ChildContent
+}
+
+@code {
+    private Error? Error { get; set; }
+
+    /// <summary>
+    /// Sobreescribe a la clase del padre ErrorBoundary para poder manejar las excepciones.
+    /// </summary>
+    /// <param name="exception"></param>
+    protected override Task OnErrorAsync(Exception exception)
+    { 
+        // Excepción producida en la llamada a la API
+        if (exception is ApiException apiException)
+        {
+            HandleApiException(apiException!);
+        }
+        // Otro tipo de excepción
+        else
+        {
+            HandleException(exception);
+        }
+        return Task.CompletedTask;
+    }
+
+    /// <summary>
+    /// Obtiene el Error personalizado de una excepción que proviene de la API
+    /// </summary>
+    /// <param name="apiException"></param>
+    /// <returns>Objeto de tipo Error</returns>
+    private void HandleApiException(ApiException apiException)
+    {
+        var problemDetails = JsonSerializer.Deserialize<ProblemDetails>(apiException.Response, new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
+        Error = new Error
+        {
+            StatusCode = problemDetails?.Status ?? StatusCodes.Status500InternalServerError,
+            Title = problemDetails?.Title ?? "Error interno del servidor",
+            Type = problemDetails?.Type ?? "https://httpstatuses.com/500",
+            Message = problemDetails?.Detail ?? "Se ha producido un error inseperado.",
+            StackTrace = apiException.StackTrace ?? ""
+        };
+    }
+
+    /// <summary>
+    /// Obtiene el Error personalizado de una excepción interna
+    /// </summary>
+    /// <param name="exception"></param>
+    /// <returns>Objeto de tipo Error</returns>
+    private void HandleException(Exception exception)
+    {
+        Error = new Error
+        {
+            StatusCode = StatusCodes.Status500InternalServerError,
+            Title = "Error interno del servidor",
+            Type = "https://httpstatuses.com/500",
+            Message = exception.Message,
+            StackTrace = exception.StackTrace ?? ""
+        };
+    }
+
+    /// <summary>
+    /// Devuelve al usuario a la página de inicio.
+    /// </summary>
+    private void ReturnToHome()
+    {
+        Error = null;
+        Navigation.NavigateTo("/", forceLoad: true);
+    }
+}

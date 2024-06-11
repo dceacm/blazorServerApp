@@ -1,0 +1,15 @@
+﻿@page "/badRequest"
+
+@inject IApiClient ApiClient
+
+<PageTitle>BadRequest</PageTitle>
+<h1>400 BadRequest</h1>
+<p>Provoca un error 400 transcurridos 3 segundos desde que se muestra la página.</p>
+
+@code {
+    protected override async Task OnInitializedAsync()
+    {
+        await Task.Delay(3000);
+        await ApiClient.ApiV1PersonsGetBadRequestAsync();
+    }
+}
