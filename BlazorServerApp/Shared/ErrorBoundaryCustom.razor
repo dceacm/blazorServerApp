@@ -1,9 +1,4 @@
-﻿@using BlazorServerApp.Data
-@using BlazorServerApp.OpenAPIs
-@using System.Text.Json
-@using Microsoft.AspNetCore.Mvc
-
-@inherits ErrorBoundaryBase
+﻿@inherits ErrorBoundaryBase
 @inject NavigationManager Navigation
 
 @if (Error != null)
@@ -43,7 +38,7 @@ else
     protected override Task OnErrorAsync(Exception exception)
     { 
         // Excepción producida en la llamada a la API
-        if (exception is ApiException apiException)
+        if (exception is BlazorServerApp.OpenAPIs.ApiException apiException)
         {
             HandleApiException(apiException!);
         }
