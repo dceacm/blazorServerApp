@@ -1,11 +1,11 @@
 # blazorServerApp
-Aplicación **Blazor Server** ASP.NET Core 7 que consume una API externa usando *OpenApiReference* para generar el código de la API y *IHttpClientFactory* para gestionar eficientemente las peticiones HTTP.
+Aplicación **Blazor Server** ASP.NET Core 7 que consume una Web API ASP.NET Core 8 externa, usando *OpenApiReference* para generar el código de la API y *IHttpClientFactory* para gestionar eficientemente las peticiones HTTP.
 
 - Acerca de *OpenApiReference*. [Leer más](https://stevetalkscode.co.uk/openapireference-commands#codegenerator-element)
 - Acerca de *IHttpClientFactory*. [Leer más](https://learn.microsoft.com/en-us/dotnet/core/extensions/httpclient-factory)
 
 ## ¿Cuál es el objetivo?
-En este proyecto, se explicará como poder gestionar y controlar las excepciones no controladas en el Front end de una aplicación **Blazor Server**.
+En este proyecto, se tratará de explicar como poder gestionar y controlar las excepciones no controladas en el Front end de una aplicación **Blazor Server**.
 
 ## Esquema
 El siguiente esquema representa el funcionamiento de lo que se quiere explicar:
@@ -14,9 +14,9 @@ El siguiente esquema representa el funcionamiento de lo que se quiere explicar:
 
 ## Soluciones separadas
 Como representa el esquema, se ha creado una solución para el Front end y otra solución para el Back end.
-- ### Blazor Server App
+- #### Blazor Server App
   El código donde puedes descargar la aplicación se encuentra en: https://github.com/dceacm/blazorServerApp
-- ### Web API
+- #### Web API
   El código donde puedes descargar la API se encuentra en: https://github.com/dceacm/webApi
   
 ## Excepciones en Blazor Server
@@ -27,11 +27,11 @@ Cuando se produce una excepción no controlada, **Blazor Server** la trata como 
 ![image](https://github.com/dceacm/blazorServerApp/assets/42771648/6d979e0b-4004-4969-bc4d-86922b9a4efd)
 
 ### Solución 1
-#### Envolviendo el *body* con el componente *ErrorBoundary*
+- #### Envolviendo el *body* con el componente *ErrorBoundary*
 Una posible solución para mejorar esto, es envolver el *body* con el componente *ErrorBoundary*. De esta manera, estaremos atacando globalmente el problema, ya que cualquier contenido que provoque una excepción será manejada por el componente *ErrorBoundary*.
 
 Para ello, hay que modificar el componente *MainLayout* y envolver el *body* con el componente *ErrorBoundary*.
-
+```csharp
 <div class="page">
     <div class="sidebar">
         <NavMenu />
@@ -49,7 +49,7 @@ Para ello, hay que modificar el componente *MainLayout* y envolver el *body* con
         </article>
     </main>
 </div>
-
+```
 Con lo anterior, obtendremos el siguiente resultado:
 
 ![image](https://github.com/dceacm/blazorServerApp/assets/42771648/aa081730-0a17-4f1d-9d4e-952896a78d9d)
@@ -57,39 +57,38 @@ Con lo anterior, obtendremos el siguiente resultado:
 Probablemente, lo anterior no se suficiente, o no al menos para todos los casos, ya que el único mensaje que nos proporciona *ErrorBoundary*, es *"An error has ocurred."*. Si bien es verdad que aparece un mensaje más amigable para el usuario, a nosotros como desarrolladores no nos servirá de mucho. Por ello la *Solución 2* es más acertada.
 
 ### Solución 2
-#### Envolviendo el *body* con el componente personalizado *ErrorBoundaryCustom*
+- #### Envolviendo el *body* con el componente personalizado *ErrorBoundaryCustom*
 
-Otra solución, es crear un componente personalizado para el tratamiento de las excepciones. En este caso, se ha creado un componente llamado *ErrorBoundaryCustom*, que trata tanto las excepciones de tipo *Exception* como las excepciones producidas por la API, como *ApiException*.
+Otra solución, es crear un componente personalizado para el tratamiento de las excepciones. En este caso, se ha creado un componente llamado *ErrorBoundaryCustom*, que trata tanto las excepciones de tipo *Exception* como las excepciones de tipo *ApiException* producidas por la Web API.
 
-Este es el código de la parte visual del componente:
+- #### Directivas 
+Usaremos la directiva *ErrorBoundaryBase* para poder heredar de la clase base *ErrorBoundaryBase*.
 ```csharp
-using System;
+@inherits ErrorBoundaryBase
+```
 
-class Program
-{
-    static void Main()
+- #### Sobreescritura del método *OnErrorAsync*
+Sobreescribiremos el método *OnErrorAsync* de la clase base *ErrorBoundaryBase*, para poder tratar las excepciones.
+```csharp
+protected override Task OnErrorAsync(Exception exception)
+{ 
+    // Excepción producida en la llamada a la API
+    if (exception is BlazorServerApp.OpenAPIs.ApiException apiException)
     {
-        Console.WriteLine("Hello, World!");
+        HandleApiException(apiException!);
     }
+    // Otro tipo de excepción
+    else
+    {
+        HandleException(exception);
+    }
+    return Task.CompletedTask;
 }
 ```
 
-Este es el contendo del código:
+
+En el *MainLayout* en lugar de llamar al componente *ErrorBoundary* llamaremos al componente *ErrorBoundaryCustom* que hemos creado.
 ```csharp
-using System;
-
-class Program
-{
-    static void Main()
-    {
-        Console.WriteLine("Hello, World!");
-    }
-}
-```
-
-
-En el *MainLayout* en lugar de llamar al componente *ErrorBoundary* llamaremos al componente *ErrorBoundaryCustom*.
-
 <div class="page">
     <div class="sidebar">
         <NavMenu />
@@ -107,8 +106,9 @@ En el *MainLayout* en lugar de llamar al componente *ErrorBoundary* llamaremos a
         </article>
     </main>
 </div>
-
+```
 Ahora obtendremos el resultado bastante más detallado, con el mensaje de la excepción en el primer contenedor y con el *StackTrace* en el segundo contenedor:
 
 ![image](https://github.com/dceacm/blazorServerApp/assets/42771648/dc4522e4-0b48-42e4-b4bf-1bc1455a7587)
+
 
