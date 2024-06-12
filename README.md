@@ -1,6 +1,9 @@
 # blazorServerApp
 Aplicación **Blazor Server** ASP.NET Core 7 que consume una API externa usando *OpenApiReference* para generar el código de la API y *IHttpClientFactory* para gestionar eficientemente las peticiones HTTP.
 
+- Acerca de *OpenApiReference*. [Leer más](https://stevetalkscode.co.uk/openapireference-commands#codegenerator-element)
+- Acerca de *IHttpClientFactory*. [Leer más](https://learn.microsoft.com/en-us/dotnet/core/extensions/httpclient-factory)
+
 ## ¿Cuál es el objetivo?
 En este proyecto, se explicará como poder gestionar y controlar las excepciones no controladas en el Front end de una aplicación **Blazor Server**.
 
@@ -59,11 +62,30 @@ Probablemente, lo anterior no se suficiente, o no al menos para todos los casos,
 Otra solución, es crear un componente personalizado para el tratamiento de las excepciones. En este caso, se ha creado un componente llamado *ErrorBoundaryCustom*, que trata tanto las excepciones de tipo *Exception* como las excepciones producidas por la API, como *ApiException*.
 
 Este es el código de la parte visual del componente:
+```csharp
+using System;
 
-
+class Program
+{
+    static void Main()
+    {
+        Console.WriteLine("Hello, World!");
+    }
+}
+```
 
 Este es el contendo del código:
+```csharp
+using System;
 
+class Program
+{
+    static void Main()
+    {
+        Console.WriteLine("Hello, World!");
+    }
+}
+```
 
 
 En el *MainLayout* en lugar de llamar al componente *ErrorBoundary* llamaremos al componente *ErrorBoundaryCustom*.
