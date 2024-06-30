@@ -3,6 +3,7 @@
 @inject IApiClient ApiClient
 
 <PageTitle>Index</PageTitle>
+
 <h1>Lista de personas</h1>
 <p>
     Ejemplo básico de consumo de una API con Blazor, mediante OpenApiReference y IHttpClientFactory.
@@ -10,38 +11,19 @@
     producir tanto en el Front end como en el Back end consumiendo una API externa.
 </p>
 
-@if (lista == null)
-{
-    <p><em>Loading...</em></p>
-}
-else
-{
-    <table class="table">
-        <thead>
-            <tr>
-                <th>FirstName</th>
-                <th>LastName</th>
-                <th>DateOfBirth</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var person in lista)
-            {
-                <tr>
-                    <td>@person.FirstName</td>
-                    <td>@person.LastName</td>
-                    <td>@person.DateOfBirth.ToShortDateString()</td>
-                </tr>
-            }
-        </tbody>
-    </table>
-}
+<GenericList List="Personas">
+    <Found Context="persona">
+        <Person Persona="persona" />
+    </Found>
+</GenericList>
 
 @code {
-    private List<Persona> lista = null!;
+    [Parameter]
+    [EditorRequired]
+    public List<Persona>? Personas { get; set; }
 
     protected override async Task OnInitializedAsync()
     {
-        lista = (await ApiClient.ApiV1PersonaGetAsync()).ToList();
+        Personas = (await ApiClient.ApiV1PersonaGetAsync()).ToList();
     }
 }

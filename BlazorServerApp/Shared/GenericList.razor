@@ -1,0 +1,59 @@
+﻿@typeparam Titem
+
+@if (List is null)
+{
+    @if (Loading is null)
+    {
+        <p>Loading...</p>
+    }
+    else
+    {
+        @Loading
+    }
+}
+else if (!List.Any())
+{
+    @if (NotFound is null)
+    {
+        <p>Not found</p>
+    }
+    else
+    {
+        @NotFound
+    }
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>FirstName</th>
+                <th>LastName</th>
+                <th>DateOfBirth</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in List)
+            {
+                <tr>
+                    @Found(item)
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+@code {
+    [Parameter]
+    public RenderFragment Loading { get; set; } = null!;
+
+    [Parameter]
+    public RenderFragment NotFound { get; set; } = null!;
+
+    [Parameter]
+    public RenderFragment<Titem> Found { get; set; } = null!;
+
+    [Parameter]
+    [EditorRequired]
+    public List<Titem> List { get; set; } = null!;
+}

@@ -45,7 +45,7 @@ public static class RegisterExtensions
     /// <returns>Cliente http con configuración añadida</returns>
     public static HttpClient AddHttpConfig(this HttpClient httpClient, IOptions<ApiClientOptions> options)
     {
-        httpClient.Timeout = new TimeSpan(0, 0, options.Value.TiempoMaximoEsperaEnSegundos);
+        httpClient.Timeout = new TimeSpan(0, 0, options.Value.TimeoutInSeconds);
 
         return httpClient;
     }

@@ -7,7 +7,7 @@ public class ApiClientOptions
     public const string SectionName = nameof(ApiClientOptions);
 
     [Required]
-    public int TiempoMaximoEsperaEnSegundos { get; set; }
+    public int TimeoutInSeconds { get; set; }
 
     [Url]
     [Required]

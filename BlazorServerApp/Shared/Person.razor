@@ -1,0 +1,10 @@
+﻿
+<td>@Persona.FirstName</td>
+<td>@Persona.LastName</td>
+<td>@Persona.DateOfBirth.ToShortDateString()</td>
+
+@code {
+    [Parameter]
+    [EditorRequired]
+    public Persona Persona { get; set; } = null!;
+}
